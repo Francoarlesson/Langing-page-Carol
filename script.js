@@ -1,4 +1,3 @@
-// Substitua estes valores pelos seus dados reais.
 const GOOGLE_API_KEY = 'SUA_API_KEY_AQUI';
 const PLACE_ID = 'SEU_PLACE_ID_AQUI';
 const MAX_REVIEWS = 4;
@@ -35,7 +34,7 @@ function createReviewCard(review) {
   const dateText = formatReviewDate(review);
 
   return `
-    <article class="review-card">
+    <article class="review-card reveal">
       <div class="review-header">
         <div class="avatar">${initials}</div>
         <div>
@@ -49,6 +48,50 @@ function createReviewCard(review) {
   `;
 }
 
+function initRevealAnimations() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealElements = document.querySelectorAll('.reveal');
+
+  if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+    revealElements.forEach((element) => element.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealElements.forEach((element) => observer.observe(element));
+}
+
+function initSmoothScroll() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const targetId = link.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      event.preventDefault();
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  });
+}
+
 function renderReviews(reviews) {
   const container = document.getElementById('reviews-container');
 
@@ -60,6 +103,7 @@ function renderReviews(reviews) {
 
   if (filteredReviews.length === 0) {
     container.innerHTML = '<p class="reviews-empty">Nenhuma avaliação com nota 4 ou 5 foi encontrada.</p>';
+    initRevealAnimations();
     return;
   }
 
@@ -69,6 +113,8 @@ function renderReviews(reviews) {
   if (cards.length > 0) {
     cards[0].classList.add('active');
   }
+
+  initRevealAnimations();
 }
 
 function updateSummary(place) {
@@ -129,5 +175,10 @@ function initGooglePlaces() {
     }
   );
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  initRevealAnimations();
+  initSmoothScroll();
+});
 
 window.initGooglePlaces = initGooglePlaces;
