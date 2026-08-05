@@ -176,9 +176,21 @@ function initGooglePlaces() {
   );
 }
 
+function initTopAlert() {
+  const closeButton = document.querySelector('.top-alert__close');
+  const topAlert = document.querySelector('.top-alert');
+
+  if (!closeButton || !topAlert) return;
+
+  closeButton.addEventListener('click', () => {
+    topAlert.style.display = 'none';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initRevealAnimations();
   initSmoothScroll();
+  initTopAlert();
 });
 
 window.initGooglePlaces = initGooglePlaces;
