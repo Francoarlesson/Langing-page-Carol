@@ -245,6 +245,19 @@ a:focus-visible {
   font-weight: 700;
 }
 
+@media (max-width: 768px) {
+  .trust-badge {
+    width: fit-content;
+    padding: 0.65rem 0.95rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .trust-badge__icon {
+    font-size: 0.95rem;
+  }
+}
+
 .hero-title {
   animation: fade-up 0.8s var(--easing) both;
   animation-delay: 0.15s;
