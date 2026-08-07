@@ -8,7 +8,7 @@
   --text-dark: #0f172a;
   --text-muted: #64748b;
   --border: rgba(255, 255, 255, 0.15);
-  --easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * {
@@ -63,7 +63,7 @@ a {
 }
 
 .btn:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-6px) scale(1.05);
   box-shadow: 0 16px 32px rgba(239, 68, 68, 0.24), 0 10px 24px rgba(15, 23, 42, 0.14);
   background: #f56565;
 }
@@ -112,8 +112,8 @@ a:focus-visible {
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s var(--easing), transform 0.7s var(--easing);
+  transform: translateY(60px);
+  transition: opacity 0.9s var(--easing), transform 0.9s var(--easing);
   will-change: opacity, transform;
 }
 
@@ -135,14 +135,14 @@ a:focus-visible {
 .about-block:hover,
 .review-card:hover,
 .brands-row span:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(15, 23, 42, 0.25);
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(50px);
   }
 
   to {
@@ -154,7 +154,7 @@ a:focus-visible {
 @keyframes fade-in-scale {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.97);
+    transform: translateY(40px) scale(0.90);
   }
 
   to {
@@ -668,7 +668,7 @@ a:focus-visible {
 }
 
 .brand-circle:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.08);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
 }
 
