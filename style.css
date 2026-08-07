@@ -1145,3 +1145,174 @@ a:focus-visible {
     box-shadow: 0 0 0 8px rgba(168, 255, 176, 0.15);
   }
 }
+
+@media (max-width: 992px) {
+  .hero-grid,
+  .pain-grid,
+  .computers-grid,
+  .about-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .service-cards {
+    flex-direction: column;
+  }
+
+  .reviews,
+  .services,
+  .brands,
+  .computers,
+  .differentials,
+  .pain-points,
+  .about-guarantee,
+  .contact-section,
+  .footer {
+    padding: 3rem 0;
+  }
+
+  .reviews h2,
+  .services h2,
+  .computers h2,
+  .brands h2,
+  .differentials h2,
+  .pain-content h2,
+  .contact-card h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-image {
+    min-height: 300px;
+  }
+
+  .hero-image img {
+    min-height: 300px;
+  }
+
+  .floating-card {
+    position: static;
+    display: inline-block;
+    margin-top: 0.7rem;
+    margin-right: 0.7rem;
+  }
+
+  .pain-content {
+    text-align: center;
+  }
+
+  .pain-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .center-btn {
+    width: 100%;
+  }
+
+  .contact-grid {
+    padding: 1.5rem;
+  }
+
+  .contact-map,
+  .contact-map iframe {
+    min-height: 300px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer-col {
+    text-align: left;
+  }
+
+  .footer {
+    padding: 2.5rem 0;
+  }
+
+  .brands-row {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.25rem 0 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+
+  .reviews h2,
+  .services h2,
+  .computers h2,
+  .brands h2,
+  .differentials h2,
+  .pain-content h2,
+  .contact-card h2 {
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  .brand-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .brands-row {
+    gap: 0.8rem;
+  }
+
+  .service-card-content {
+    padding: 1rem;
+  }
+
+  .benefit-card,
+  .about-block {
+    padding: 1.1rem;
+  }
+}
