@@ -51,9 +51,11 @@ function createReviewCard(review) {
 function initRevealAnimations() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealElements = document.querySelectorAll('.reveal');
+  const logoImages = document.querySelectorAll('.logo img');
 
   if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
     revealElements.forEach((element) => element.classList.add('is-visible'));
+    logoImages.forEach((img) => img.classList.add('is-visible'));
     return;
   }
 
@@ -61,15 +63,67 @@ function initRevealAnimations() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          const el = entry.target;
+          const delay = el.dataset && el.dataset.delay ? parseFloat(el.dataset.delay) : 0;
+          if (delay) el.style.transitionDelay = `${delay}s`;
+          // If the target is an image inside logo, mark visible on the img
+          if (el.tagName === 'IMG' && el.parentElement && el.parentElement.classList.contains('logo')) {
+            el.classList.add('is-visible');
+          } else {
+            el.classList.add('is-visible');
+          }
+          observer.unobserve(el);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.12 }
   );
 
   revealElements.forEach((element) => observer.observe(element));
+  logoImages.forEach((img) => observer.observe(img));
+
+  // Hero image parallax (subtle) - respects reduced motion
+  const hero = document.querySelector('.hero-image');
+  if (hero && !prefersReducedMotion) {
+    const img = hero.querySelector('img');
+    let latestX = 0;
+    let latestY = 0;
+    let ticking = false;
+
+    function onMove(e) {
+      const rect = hero.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || cx;
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY) || cy;
+      latestX = (clientX - cx) / rect.width * 8; // small angle
+      latestY = (clientY - cy) / rect.height * 6;
+      requestTick();
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateTransform);
+      }
+      ticking = true;
+    }
+
+    function updateTransform() {
+      ticking = false;
+      if (!img) return;
+      img.style.transform = `translate3d(${latestX}px, ${latestY / 2}px, 0) scale(1.015)`;
+    }
+
+    hero.addEventListener('mousemove', onMove, { passive: true });
+    hero.addEventListener('touchmove', onMove, { passive: true });
+    // subtle scroll-based movement
+    window.addEventListener('scroll', () => {
+      if (!img) return;
+      const rect = hero.getBoundingClientRect();
+      const scrollFactor = Math.min(Math.max(-rect.top / 300, -10), 10);
+      img.style.transform = `translate3d(0, ${scrollFactor}px, 0) scale(1.01)`;
+    }, { passive: true });
+  }
 }
 
 function initSmoothScroll() {
