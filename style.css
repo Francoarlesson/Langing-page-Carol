@@ -223,10 +223,12 @@ a:focus-visible {
   margin-bottom: 1.4rem;
 }
 
-.logo img {
+.logo img,
+.logo-image {
   display: block;
-  width: clamp(140px, 22vw, 264px);
+  width: 250px;
   height: auto;
+  max-width: 100%;
   max-height: 92px;
   object-fit: contain;
   object-position: left center;
@@ -246,7 +248,11 @@ a:focus-visible {
 
 /* Ensure logo not overly large on small screens */
 @media (max-width: 768px) {
-  .logo img { width: clamp(110px, 28vw, 180px); max-height: 64px; }
+  .logo img,
+  .logo-image {
+    width: 180px;
+    max-height: 64px;
+  }
   .hero-badges { align-items: center; }
 }
 
